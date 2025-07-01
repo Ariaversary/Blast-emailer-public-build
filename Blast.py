@@ -12,7 +12,7 @@ import time
 import threading
 import json
 
-
+# Load credentials from config.json
 try:
     with open("config.json", "r") as f:
         config = json.load(f)
@@ -21,6 +21,7 @@ except FileNotFoundError:
 except json.JSONDecodeError as e:
     raise ValueError(f"❌ Invalid JSON format in config.json: {e}")
 
+# Validate expected keys
 required_keys = ["tenant_id", "client_id", "client_secret", "sender_email"]
 for key in required_keys:
     if key not in config or not config[key].strip():
@@ -70,17 +71,41 @@ def extract_html_and_image_map(msg_path):
 
     cid_matches = re.findall(r'cid:([^"\'>]+)', html_body)
     cid_to_file = {}
+    cid_to_url = {}
 
     for cid in sorted(set(cid_matches)):
         file_path = filedialog.askopenfilename(
             title=f"Select image for CID: {cid}",
             filetypes=[("Image files", "*.png *.jpg *.jpeg *.gif *.bmp *.webp")]
         )
-        if file_path:
-            cid_to_file[cid] = file_path
-        else:
+        if not file_path:
             messagebox.showwarning("Missing Image", f"No image selected for CID: {cid}")
+            continue
+
+        cid_to_file[cid] = file_path
+
+        # Ask for hyperlink with validation
+        while True:
+            url = simpledialog.askstring("Image Link", f"Enter URL to hyperlink the image with CID '{cid}':\n(Leave blank to skip)")
+            if url is None or url.strip() == "":
+                break  # User skipped linking
+            url = url.strip()
+            if url.startswith("http://") or url.startswith("https://"):
+                # Wrap the <img src="cid:..."> with a hyperlink
+                html_body = re.sub(
+                    rf'(<img[^>]+src=["\']cid:{cid}["\'][^>]*>)',
+                    rf'<a href="{url}">\1</a>',
+                    html_body,
+                    flags=re.IGNORECASE
+                )
+                cid_to_url[cid] = url
+                break
+            else:
+                messagebox.showwarning("Invalid URL", "Please enter a valid URL starting with http:// or https://")
+
     return msg.subject or "email", html_body, cid_to_file
+
+
 
 
 def prepare_inline_attachments(cid_to_file):
