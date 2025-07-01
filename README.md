@@ -4,6 +4,8 @@
 
 # Disclaimer: Use at your own risk!
 
+This application uses your or your company's Tenant ID, Client ID and Client Secret from your Microsoft Azure or any other domain, therefore it is in your best interest to NOT share any of your information regarding it to anyone outside of your company.
+
 # How to use the blast emailing software:
 
 
