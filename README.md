@@ -41,6 +41,8 @@ Follow the steps required:
 
 		Example: If you had a sales image in the middle of the email, then have a business card at the bottom, Please select the sales image first, then business card image next.
 
+  		**You can also enter hyperlinks now if you'd wish on each individual image.**
+
 	d) Enter the name of the specific sheet you want to use. (Make sure the spelling is exact)
 
 			Example: Sheet name "Malaysian Government (135)"
