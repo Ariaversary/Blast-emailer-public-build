@@ -2,7 +2,7 @@
 
 # This program's intended use is for Microsoft Azure, you may edit the code to fit your use as needed (including Client, Tenant and Client Secrets)
 
-#Disclaimer: Use at your own risk!
+# Disclaimer: Use at your own risk!
 
 How to use the blast emailing software:
 
