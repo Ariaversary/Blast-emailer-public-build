@@ -10,6 +10,29 @@ import pandas as pd
 import requests
 import time
 import threading
+import json
+
+# Load credentials from config.json
+try:
+    with open("config.json", "r") as f:
+        config = json.load(f)
+except FileNotFoundError:
+    raise FileNotFoundError("❌ 'config.json' file not found. Please create one with the required credentials.")
+except json.JSONDecodeError as e:
+    raise ValueError(f"❌ Invalid JSON format in config.json: {e}")
+
+# Validate expected keys
+required_keys = ["tenant_id", "client_id", "client_secret", "sender_email"]
+for key in required_keys:
+    if key not in config or not config[key].strip():
+        raise ValueError(f"❌ Missing or empty '{key}' in config.json")
+
+# Set variables
+TENANT_ID = config["tenant_id"]
+CLIENT_ID = config["client_id"]
+CLIENT_SECRET = config["client_secret"]
+SENDER_EMAIL = config["sender_email"]
+
 
 
 cached_token = None
@@ -19,21 +42,6 @@ token_acquired_time = 0
 # ────────────────────────────────
 # Microsoft Graph API credentials
 # ────────────────────────────────
-
-# This program's intended use is for Microsoft Azure, you may change it depending on your use
-
-TENANT_ID = " "
-CLIENT_ID = " "
-CLIENT_SECRET = " "
-
-
-# Change this to the email you'd want to use to appear as the sender of your email
-
-# Example: "example@gmail.com"
-
-SENDER_EMAIL = "example@gmail.com"
-
-
 
 def get_access_token():
     global cached_token, token_acquired_time
