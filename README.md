@@ -2,14 +2,18 @@
 
 # This program's intended use is for Microsoft Azure, you may edit the code to fit your use as needed (including Client, Tenant and Client Secrets)
 
+# Disclaimer: Use at your own risk!
+
 How to use the blast emailing software:
 
 
 Step 1:
 
-Change the [SENDER EMAIL] line inside the Blast.py code.
+Enter Client Secret and ID, and Tenant ID using Microsoft Azure
 
-# You can use notepad to access the code and change it there as labelled 
+Change the [SENDER EMAIL] line inside the config.json.
+
+**You can use notepad to access the code and change it there as labelled**
 
 
 
