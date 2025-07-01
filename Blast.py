@@ -86,7 +86,7 @@ def extract_html_and_image_map(msg_path):
 
         # Ask for hyperlink with validation
         while True:
-            url = simpledialog.askstring("Image Link", f"Enter URL to hyperlink the image with CID '{cid}':\n(Leave blank to skip)")
+            url = simpledialog.askstring("Image Link", f"Enter URL to hyperlink the image with CID '{cid}':\n(for Whatsapp links, use https://wa.me/[Your Phone Number]?text=[Your message to be sent]). Please change [] with your info):\n(Leave blank to skip)")
             if url is None or url.strip() == "":
                 break  # User skipped linking
             url = url.strip()
