@@ -11,7 +11,7 @@ Step 1:
 
 Change the [SENDER EMAIL] line inside the Blast.py code.
 
-**You can use notepad to access the code and change it there as labelled **
+**You can use notepad to access the code and change it there as labelled**
 
 
 
