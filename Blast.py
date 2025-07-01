@@ -125,9 +125,6 @@ def run():
     root = tk.Tk()
     root.title("Bulk Email Sender")
 
-    # ──────────────
-    # Log box
-    # ──────────────
     status_log = scrolledtext.ScrolledText(root, width=90, height=20, state='disabled', wrap='word')
     status_log.pack(padx=10, pady=10)
 
@@ -139,43 +136,87 @@ def run():
             status_log.config(state='disabled')
         root.after(0, append)
 
-    # ──────────────
-    # Input phase
-    # ──────────────
-    msg_path = filedialog.askopenfilename(
-        title="Select MSG File",
-        filetypes=[("MSG Files", "*.msg")]
-    )
-    if not msg_path:
-        return
-
-    excel_path = filedialog.askopenfilename(
-        title="Select Excel Sheet with Email Column",
-        filetypes=[("Excel Files", "*.xlsx *.xls")]
-    )
-    if not excel_path:
-        return
-
-    try:
-        subject, html_body, cid_to_file = extract_html_and_image_map(msg_path)
-        attachments = prepare_inline_attachments(cid_to_file)
-
-        xlsx = pd.ExcelFile(excel_path)
-        sheet_name = simpledialog.askstring("Sheet Selection",
-            f"Available sheets:\n{', '.join(xlsx.sheet_names)}\n\nEnter sheet name to use:")
-        if sheet_name not in xlsx.sheet_names:
-            messagebox.showerror("Error", f"Sheet '{sheet_name}' not found.")
+    def start_workflow():
+        msg_path = filedialog.askopenfilename(
+            title="Select MSG File",
+            filetypes=[("MSG Files", "*.msg")]
+        )
+        if not msg_path:
             return
 
-        df = pd.read_excel(xlsx, sheet_name=sheet_name)
-        email_col = next((col for col in df.columns if str(col).strip().lower() == "email"), None)
-        if not email_col:
-            messagebox.showerror("Error", "No 'Email' column found in the Excel file.")
+        excel_path = filedialog.askopenfilename(
+            title="Select Excel Sheet with Email Column",
+            filetypes=[("Excel Files", "*.xlsx *.xls")]
+        )
+        if not excel_path:
             return
 
-    except Exception as setup_error:
-        messagebox.showerror("Setup Error", str(setup_error))
-        return
+        try:
+            subject, html_body, cid_to_file = extract_html_and_image_map(msg_path)
+            attachments = prepare_inline_attachments(cid_to_file)
+
+            xlsx = pd.ExcelFile(excel_path)
+            sheet_name = simpledialog.askstring("Sheet Selection",
+                f"Available sheets:\n{', '.join(xlsx.sheet_names)}\n\nEnter sheet name to use:")
+            if sheet_name not in xlsx.sheet_names:
+                messagebox.showerror("Error", f"Sheet '{sheet_name}' not found.")
+                return
+
+            df = pd.read_excel(xlsx, sheet_name=sheet_name)
+            email_col = next((col for col in df.columns if str(col).strip().lower() == "email"), None)
+            if not email_col:
+                messagebox.showerror("Error", "No 'Email' column found in the Excel file.")
+                return
+
+        except Exception as setup_error:
+            messagebox.showerror("Setup Error", str(setup_error))
+            return
+
+        delay_var = tk.DoubleVar(value=2.0)
+        cc_var = tk.StringVar()
+
+        input_win = tk.Toplevel(root)
+        input_win.title("Email Settings")
+
+        tk.Label(input_win, text="Delay between emails (seconds):").pack(pady=(10, 2))
+        tk.Entry(input_win, textvariable=delay_var, width=10).pack()
+
+        tk.Label(input_win, text="CC (comma-separated emails):").pack(pady=(10, 2))
+        tk.Entry(input_win, textvariable=cc_var, width=50).pack()
+
+        def send_all_emails():
+            input_win.destroy()
+            cc_list = [cc.strip() for cc in cc_var.get().split(",") if cc.strip()]
+            delay = delay_var.get()
+            log("🔄 Starting email send process...")
+
+            def thread_func():
+                try:
+                    token = get_access_token()
+                    for idx, row in df.iterrows():
+                        email = str(row[email_col]).strip()
+                        if email:
+                            success, result = send_email(email, subject, html_body, token, attachments, cc_emails=cc_list)
+                            if success:
+                                log(f"✅ Sent to {email}")
+                            else:
+                                log(f"❌ Failed to {email}: {result}")
+                            time.sleep(delay)
+                    root.after(0, lambda: messagebox.showinfo("Done", "All emails sent."))
+                except Exception as e:
+                    log(f"❌ Error: {e}")
+                    root.after(0, lambda: messagebox.showerror("Error", str(e)))
+
+            threading.Thread(target=thread_func, daemon=True).start()
+
+        tk.Button(input_win, text="Start Sending", command=send_all_emails).pack(pady=10)
+        input_win.grab_set()
+
+    # Add button to begin workflow
+    tk.Button(root, text="Begin Bulk Email Process", command=start_workflow).pack(pady=10)
+
+    root.mainloop()
+
 
     # ──────────────
     # Delay & CC Input
