@@ -4,7 +4,7 @@
 
 # Disclaimer: Use at your own risk!
 
-How to use the blast emailing software:
+# How to use the blast emailing software:
 
 
 Step 1:
