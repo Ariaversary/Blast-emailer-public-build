@@ -37,8 +37,14 @@ Follow the steps required:
 
 a) You would be required to select the .msg file as your email template
 	![image](https://github.com/user-attachments/assets/012575f7-9e09-45e4-992c-0b8c46a7e04b)
+ 
+
+ 
 
 b) You would then need to select your excel file as a database. (Make sure it has an email column in the sheet you want to use.)
+
+
+
 
 c) Select the images that were used in the original email, from *TOP* to *BOTTOM*
 
@@ -46,6 +52,7 @@ Example: If you had a sales image in the middle of the email, then have a busine
 
   **You can also enter hyperlinks now if you'd wish on each individual image.**
 ![image](https://github.com/user-attachments/assets/823527c4-080e-4b67-8390-86834e810564)
+
 
 
 d) Enter the name of the specific sheet you want to use. (Make sure the spelling is exact)
@@ -57,12 +64,15 @@ Make sure you enter the name 1 to 1.
 ![image](https://github.com/user-attachments/assets/d86cf29f-d78b-485f-8b6a-5e05695d2d89)
 	
 In this case, you would need to enter exactly "OCW5CFF" with exact spacing and text for it to work
+
+
    
 e) Enter the sending delay between each emails in seconds (Recommended is 15 seconds, to prevent auto-spam filters)
 
 You can also enter emails you would want to CC during this part of the program
 
 ![image](https://github.com/user-attachments/assets/a801c614-c6c3-4a72-85b7-f171fd05327c)
+
 
 
 
