@@ -1,0 +1,9 @@
+# Ignore build output (HTML) from language stats
+build/** linguist-generated
+
+# Optional: mark LaTeX/TeX and HTML as documentation
+*.tex linguist-documentation
+*.html linguist-documentation
+
+# Explicitly declare Python as the main language
+*.py linguist-language=Python
