@@ -12,7 +12,7 @@ import time
 import threading
 import json
 
-# Load credentials from config.json
+
 try:
     with open("config.json", "r") as f:
         config = json.load(f)
@@ -21,7 +21,6 @@ except FileNotFoundError:
 except json.JSONDecodeError as e:
     raise ValueError(f"❌ Invalid JSON format in config.json: {e}")
 
-# Validate expected keys
 required_keys = ["tenant_id", "client_id", "client_secret", "sender_email"]
 for key in required_keys:
     if key not in config or not config[key].strip():
