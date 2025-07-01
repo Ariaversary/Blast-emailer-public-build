@@ -11,7 +11,7 @@ Step 1:
 
 Enter Client Secret and ID, and Tenant ID using Microsoft Azure
 
-Change the [SENDER EMAIL] line inside the Blast.py code.
+Change the [SENDER EMAIL] line inside the config.json.
 
 **You can use notepad to access the code and change it there as labelled**
 
