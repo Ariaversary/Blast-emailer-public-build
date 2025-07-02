@@ -1,5 +1,5 @@
-('C:\\Users\\User\\Desktop\\work\\blast email '
- '2\\test23\\build\\Blast\\PYZ-00.pyz',
+('C:\\Users\\User\\Desktop\\work\\blast email 2\\Blast Emailer for '
+ 'ibis\\build\\Blast\\PYZ-00.pyz',
  [('PIL',
    'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\PIL\\__init__.py',
    'PYMODULE'),
@@ -3668,6 +3668,9 @@
    'PYMODULE'),
   ('tkinter.messagebox',
    'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\tkinter\\messagebox.py',
+   'PYMODULE'),
+  ('tkinter.scrolledtext',
+   'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\tkinter\\scrolledtext.py',
    'PYMODULE'),
   ('tkinter.simpledialog',
    'C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\tkinter\\simpledialog.py',
