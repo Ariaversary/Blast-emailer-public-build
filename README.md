@@ -52,6 +52,8 @@ c) Select the images that were used in the original email, from *TOP* to *BOTTOM
 
 Example: If you had a sales image in the middle of the email, then have a business card at the bottom, Please select the sales image first, then business card image next.
 
+**DISCLAIMER: THIS TOTALLY DEPENDS ON HOW YOUR .MSG FILE WAS SAVED, IT COULD BE IN A DIFFERENT ORDER, PLEASE CHECK THE LAYOUT BY SENDING 1 EMAIL TO A TEST EMAIL BEFORE YOU FULLY BLAST IT TO AVOID ISSUES
+
   **You can also enter hyperlinks now if you'd wish on each individual image.**
 ![image](https://github.com/user-attachments/assets/823527c4-080e-4b67-8390-86834e810564)
 
